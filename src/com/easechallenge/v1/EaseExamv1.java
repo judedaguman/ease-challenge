@@ -1,5 +1,8 @@
 package com.easechallenge.v1;
-
+/**
+ * @author jude.daguman
+ *
+ */
 public class EaseExamv1{
 	
 	public static void main (String[] args) {

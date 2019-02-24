@@ -1,15 +1,10 @@
 package com.easechallenge;
 
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import com.easechallenge.objects.FileManager;
 import com.easechallenge.objects.Runner;
 /**
  * @author jude.daguman
@@ -19,63 +14,18 @@ public class EaseExamv2{
 	
 	public static void main (String[] args) {
 		
-		//test 4x4 example
-		
-		//int longestPath = 0;
 		List<Integer [] > mapArray = new ArrayList<Integer []>();
-        //Integer[][] map2d = { {4, 8, 7, 3}, {2, 5, 9, 3}, {6, 3, 2, 5}, {4,4,1,6} };
-		
-	
-        FileReader fr;
-		try {
-			fr = new FileReader(new File("").getAbsolutePath()+"\\src\\com\\easechallenge\\map.txt");
-			BufferedReader br = new BufferedReader(fr);
-	        String line = br.readLine();
-	       
-	        String[] arrayLength = line.split(" ", 2);
-	        Integer rowLength = Integer.parseInt(arrayLength[0]);
-	        Integer colLength = Integer.parseInt(arrayLength[1]);
-	        line = null;
-	        Integer[][] arr = new Integer[rowLength][colLength];
-	        	for (int i = 0; i < rowLength; i++) {
-	                String[] st = br.readLine().trim().split(" ");
-	                for (int j = 0;j < colLength; j++) {
-	                	arr[i][j]  = Integer.parseInt(st[j]) ;
-	                }
-	           }
-	        	
-	          for (int i= 0;  i< rowLength; i++) {
-        		mapArray.add(arr[i]);
-			
-		}
-	        
-	        br.close();
-	        
-	        
-		} catch (FileNotFoundException e) {
-			System.out.println("Error File Not Found");
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("File Read Error");
-			e.printStackTrace();
-		}
-        
-        
-        
-		//MountainMap testMap = new MountainMap();
-        //display(mapArray,numRows,numCols);
+		FileManager fm = new FileManager();
+		mapArray = fm.readFile();
 		Runner resultSet = new Runner();
 		Stack<Runner> inputStack = new Stack<Runner>();
 		
 		inputStack = initialize(mapArray);
-		//resultSet = findLongestPath(newMapArray);
-		//int maxDrop;
 		resultSet = newSearchNSEW(inputStack, mapArray, resultSet);
 		StringBuilder sb = new StringBuilder(resultSet.getPath());
 		sb.reverse();
 		sb.deleteCharAt(0);
 		sb.reverse();
-        //resultSet = storeValues(mapArray);
 		System.out.println("Longest Path: " + resultSet.getMaxLength());
 		System.out.println("Path Values: " + sb.toString());
 		System.out.println("Longest Drop: " + resultSet.getMaxDrop());
@@ -84,7 +34,6 @@ public class EaseExamv2{
 	
 	public static Stack<Runner> initialize (List<Integer [] > mapArray) {
 		//initialize stack loop from last to first
-		//LinkedList<Runner> runner = new LinkedList<Runner>();
 		Stack<Runner> runner = new Stack<Runner>();
 		for (int row = mapArray.size()-1; row >= 0 ; row--) {
 			for (int col = (mapArray.get(row).length-1); col >= 0; col--) {
