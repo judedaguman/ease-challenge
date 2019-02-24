@@ -27,14 +27,19 @@ public class EaseExamv2{
         //display(mapArray,numRows,numCols);
 		Runner resultSet = new Runner();
 		Stack<Runner> inputStack = new Stack<Runner>();
+		
 		inputStack = initialize(mapArray);
 		//resultSet = findLongestPath(newMapArray);
 		//int maxDrop;
 		resultSet = newSearchNSEW(inputStack, mapArray, resultSet);
+		StringBuilder sb = new StringBuilder(resultSet.getPath());
+		sb.reverse();
+		sb.deleteCharAt(0);
+		sb.reverse();
         //resultSet = storeValues(mapArray);
-		System.out.println("Longest Path:  " + resultSet.getMaxLength());
-		System.out.println("Path Values" + resultSet.getPath());
-        
+		System.out.println("Longest Path: " + resultSet.getMaxLength());
+		System.out.println("Path Values: " + sb.toString());
+		System.out.println("Longest Drop: " + resultSet.getMaxDrop());
 		
 	}
 	
@@ -148,6 +153,7 @@ public class EaseExamv2{
 					resultSet = runner;
 					resultSet.setMaxDrop();
 				} else if(runner.getMaxLength() == resultSet.getMaxLength()) {
+						runner.setMaxDrop();
 					if(runner.getMaxDrop() > resultSet.getMaxDrop()) {
 						resultSet = runner;
 					}
