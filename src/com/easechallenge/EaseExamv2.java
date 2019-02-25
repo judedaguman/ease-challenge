@@ -75,6 +75,7 @@ public class EaseExamv2{
 					int westValue = mapArray.get(runner.getP1())[runner.getP2()-1];
 					westRunner.setP2(westCoor);
 					westRunner.setMaxLength(runner.getMaxLength()+1);
+					westRunner.setLastNode(westValue);
 					stringBuilder.append(runner.getPath() + westValue + "-");
 					westRunner.setPath(stringBuilder.toString());
 					inputStack.push(westRunner);
@@ -92,6 +93,7 @@ public class EaseExamv2{
 					int northValue = mapArray.get(runner.getP1()-1)[runner.getP2()];
 					northRunner.setP1(northCoor);
 					northRunner.setMaxLength(runner.getMaxLength()+1);
+					northRunner.setLastNode(northValue);
 					stringBuilder.append(runner.getPath() + northValue + "-");
 					northRunner.setPath(stringBuilder.toString());
 					inputStack.push(northRunner);
@@ -111,6 +113,7 @@ public class EaseExamv2{
 					eastRunner.setP2(eastCoor);
 					eastRunner.setMaxLength(runner.getMaxLength()+1);
 					stringBuilder.append(runner.getPath() + eastValue + "-");
+					eastRunner.setLastNode(eastValue);
 					eastRunner.setPath(stringBuilder.toString());
 					inputStack.push(eastRunner);
 					moveStatus = true;
